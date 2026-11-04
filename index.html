@@ -1,0 +1,1325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danttel AI Studio</title>
+
+<style>
+:root {
+  --bg:#090b14;
+  --panel:#111522;
+  --card:#171d2d;
+  --text:#f4f5ff;
+  --muted:#929ab0;
+  --border:#282e41;
+  --accent:#8964ff;
+  --accent2:#4d8cff;
+}
+
+body.light {
+  --bg:#f2f4fa;
+  --panel:#ffffff;
+  --card:#f7f8fc;
+  --text:#171b2b;
+  --muted:#657087;
+  --border:#dfe3ee;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,textarea,select {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.app {
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar {
+  width:250px;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  padding:24px 16px;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+}
+
+.logo {
+  font-size:23px;
+  font-weight:900;
+  margin-bottom:35px;
+  padding-left:10px;
+}
+
+.logo span {
+  color:var(--accent);
+}
+
+.logo small {
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:3px;
+  margin-top:5px;
+}
+
+.nav-label {
+  font-size:10px;
+  color:var(--muted);
+  margin:20px 10px 10px;
+  letter-spacing:2px;
+}
+
+.nav-btn {
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:13px;
+  text-align:left;
+  border-radius:10px;
+  margin-bottom:5px;
+  font-size:13px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background:rgba(137,100,255,.15);
+  color:var(--text);
+}
+
+.nav-btn.active {
+  border-left:3px solid var(--accent);
+}
+
+.sidebar-bottom {
+  margin-top:auto;
+  border-top:1px solid var(--border);
+  padding-top:18px;
+}
+
+.profile {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+}
+
+.avatar {
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#865cff,#398cff);
+  font-weight:bold;
+}
+
+.profile small {
+  display:block;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.main {
+  flex:1;
+  min-width:0;
+}
+
+.topbar {
+  height:70px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.topbar-right {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.menu-btn {
+  display:none;
+}
+
+.icon-btn {
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 13px;
+  border-radius:10px;
+}
+
+.content {
+  max-width:1250px;
+  margin:auto;
+  padding:35px 28px;
+}
+
+.page {
+  display:none;
+}
+
+.page.active {
+  display:block;
+}
+
+.eyebrow {
+  color:var(--accent);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:2px;
+  margin-bottom:12px;
+}
+
+h1 {
+  font-size:clamp(26px,4vw,38px);
+  margin-bottom:12px;
+}
+
+h2 {
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+h3 {
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+.subtitle {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.hero {
+  background:
+    radial-gradient(circle at 90% 10%,rgba(137,100,255,.24),transparent 40%),
+    var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:35px;
+  margin-bottom:25px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+  margin-top:22px;
+}
+
+.card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:22px;
+}
+
+.tool-card {
+  cursor:pointer;
+  transition:.2s;
+}
+
+.tool-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--accent);
+}
+
+.tool-icon {
+  font-size:27px;
+  margin-bottom:15px;
+}
+
+.card p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin:28px 0 15px;
+}
+
+.btn {
+  border:0;
+  padding:12px 17px;
+  border-radius:9px;
+  background:linear-gradient(120deg,var(--accent),var(--accent2));
+  color:white;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.btn.secondary {
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.btn.danger {
+  background:#a83249;
+}
+
+.btn:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+textarea,
+input,
+select {
+  width:100%;
+  padding:14px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:10px;
+  outline:none;
+  margin:8px 0 15px;
+}
+
+textarea {
+  min-height:130px;
+  resize:vertical;
+  line-height:1.6;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  border-color:var(--accent);
+}
+
+label {
+  font-size:12px;
+  color:var(--muted);
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.output {
+  background:#080b13;
+  color:#b8c6df;
+  padding:18px;
+  border-radius:12px;
+  white-space:pre-wrap;
+  overflow:auto;
+  min-height:100px;
+  font-family:monospace;
+  font-size:12px;
+  line-height:1.7;
+  margin-top:15px;
+}
+
+.output:empty {
+  display:none;
+}
+
+.chat-box {
+  min-height:350px;
+  max-height:480px;
+  overflow-y:auto;
+  padding:15px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.message {
+  padding:13px;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:13px;
+  line-height:1.7;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.message.user {
+  background:rgba(137,100,255,.16);
+  margin-left:12%;
+}
+
+.message.ai {
+  background:var(--panel);
+  border:1px solid var(--border);
+  margin-right:8%;
+}
+
+.composer {
+  display:flex;
+  gap:10px;
+  align-items:flex-end;
+}
+
+.composer textarea {
+  margin:0;
+  min-height:55px;
+}
+
+.composer button {
+  min-height:52px;
+}
+
+.chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:15px 0;
+}
+
+.chip {
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--muted);
+  border-radius:20px;
+  padding:9px 13px;
+  font-size:11px;
+}
+
+.preview {
+  width:100%;
+  height:520px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+}
+
+.preview-tools {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:15px 0;
+}
+
+.project {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.project small {
+  display:block;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.status {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:12px;
+}
+
+.status.error {
+  color:#ff7777;
+}
+
+.status.success {
+  color:#55d99a;
+}
+
+.settings-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.empty {
+  text-align:center;
+  color:var(--muted);
+  padding:35px;
+}
+
+.mobile-overlay {
+  display:none;
+}
+
+@media(max-width:850px) {
+  .sidebar {
+    position:fixed;
+    left:-270px;
+    top:0;
+    bottom:0;
+    z-index:20;
+    transition:.25s;
+  }
+
+  .sidebar.open {
+    left:0;
+  }
+
+  .mobile-overlay.show {
+    display:block;
+    position:fixed;
+    inset:0;
+    background:#0009;
+    z-index:10;
+  }
+
+  .menu-btn {
+    display:block;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .content {
+    padding:25px 16px;
+  }
+}
+
+@media(max-width:520px) {
+  .grid,
+  .form-grid {
+    grid-template-columns:1fr;
+  }
+
+  .hero {
+    padding:23px;
+  }
+
+  .topbar {
+    padding:0 15px;
+  }
+
+  .content {
+    padding:22px 13px;
+  }
+
+  .preview {
+    height:400px;
+  }
+
+  .composer {
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .composer button {
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="mobile-overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    DANTTEL<span>.</span>
+    <small>AI STUDIO</small>
+  </div>
+
+  <div class="nav-label">WORKSPACE</div>
+
+  <button class="nav-btn active" data-page="dashboard">⌂ Overview</button>
+  <button class="nav-btn" data-page="chat">✦ AI Chat</button>
+  <button class="nav-btn" data-page="builder">◈ Website Builder</button>
+  <button class="nav-btn" data-page="code">⌘ Code Assistant</button>
+  <button class="nav-btn" data-page="writing">✎ Writing Studio</button>
+
+  <div class="nav-label">MANAGEMENT</div>
+
+  <button class="nav-btn" data-page="projects">▣ My Projects</button>
+  <button class="nav-btn" data-page="settings">⚙ Settings</button>
+
+  <div class="sidebar-bottom">
+    <div class="profile">
+      <div class="avatar">D</div>
+      <div>
+        <strong>Danttel User</strong>
+        <small>Studio workspace</small>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+  <div class="topbar-right">
+    <button class="icon-btn menu-btn" onclick="toggleMenu()">☰</button>
+    <strong id="pageTitle">Overview</strong>
+  </div>
+
+  <div class="topbar-right">
+    <span style="font-size:11px;color:var(--muted)">AI STUDIO</span>
+    <button class="icon-btn" onclick="toggleTheme()">◐</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="dashboard">
+
+  <div class="hero">
+    <p class="eyebrow">WELCOME TO DANTTEL AI</p>
+    <h1>What will we create today?</h1>
+    <p class="subtitle">
+      Your intelligent workspace for building websites,
+      writing code and creating digital experiences.
+    </p>
+
+    <br>
+    <button class="btn" onclick="showPage('builder')">
+      Start Building →
+    </button>
+  </div>
+
+  <h2>Your creative workspace</h2>
+
+  <div class="grid">
+
+    <div class="card tool-card" onclick="showPage('chat')">
+      <div class="tool-icon">✦</div>
+      <h3>AI Chat</h3>
+      <p>Ask questions, brainstorm ideas and get intelligent assistance.</p>
+    </div>
+
+    <div class="card tool-card" onclick="showPage('builder')">
+      <div class="tool-icon">◈</div>
+      <h3>Website Builder</h3>
+      <p>Generate websites using natural language prompts.</p>
+    </div>
+
+    <div class="card tool-card" onclick="showPage('code')">
+      <div class="tool-icon">⌘</div>
+      <h3>Code Assistant</h3>
+      <p>Write, improve and debug your programming code.</p>
+    </div>
+
+    <div class="card tool-card" onclick="showPage('writing')">
+      <div class="tool-icon">✎</div>
+      <h3>Writing Studio</h3>
+      <p>Create professional content and written documents.</p>
+    </div>
+
+    <div class="card tool-card" onclick="showPage('projects')">
+      <div class="tool-icon">▣</div>
+      <h3>My Projects</h3>
+      <p>Manage and access your saved website projects.</p>
+    </div>
+
+    <div class="card tool-card" onclick="showPage('settings')">
+      <div class="tool-icon">⚙</div>
+      <h3>Workspace Settings</h3>
+      <p>Customize your Danttel AI Studio experience.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- AI CHAT -->
+
+<section class="page" id="chat">
+
+  <p class="eyebrow">INTELLIGENT ASSISTANT</p>
+  <h1>AI Chat</h1>
+  <p class="subtitle">Talk to your AI assistant.</p>
+
+  <br>
+
+  <div class="chat-box" id="chatBox">
+    <div class="message ai">
+      Welcome to Danttel AI Studio! How can I help you today?
+    </div>
+  </div>
+
+  <div class="chips">
+    <button class="chip" onclick="quickChat('Explain JavaScript to me')">Explain JavaScript</button>
+    <button class="chip" onclick="quickChat('Give me a startup idea')">Startup ideas</button>
+    <button class="chip" onclick="quickChat('Help me build a website')">Build a website</button>
+  </div>
+
+  <div class="composer">
+    <textarea id="chatInput" placeholder="Ask Danttel AI anything..."></textarea>
+    <button class="btn" id="chatSend" onclick="sendChat()">Send ↑</button>
+  </div>
+
+  <div class="status" id="chatStatus"></div>
+
+</section>
+
+<!-- WEBSITE BUILDER -->
+
+<section class="page" id="builder">
+
+  <p class="eyebrow">AI WEBSITE GENERATION</p>
+  <h1>Website Builder</h1>
+  <p class="subtitle">Describe your idea. Let Danttel AI build it.</p>
+
+  <br>
+
+  <div class="card">
+
+    <label>Describe your website</label>
+    <textarea id="sitePrompt" placeholder="Example: Build a modern technology company website with a professional homepage, services, about section and contact form."></textarea>
+
+    <div class="form-grid">
+
+      <div>
+        <label>Design style</label>
+        <select id="siteStyle">
+          <option>Modern premium</option>
+          <option>Minimal clean</option>
+          <option>Bold colourful</option>
+          <option>Elegant luxury</option>
+          <option>Creative playful</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Primary colour</label>
+        <select id="siteColor">
+          <option>Purple</option>
+          <option>Blue</option>
+          <option>Emerald</option>
+          <option>Crimson</option>
+          <option>Gold</option>
+          <option>Midnight black</option>
+        </select>
+      </div>
+
+    </div>
+
+    <button class="btn" id="buildBtn" onclick="generateWebsite()">
+      ✦ Generate Website
+    </button>
+
+    <div class="status" id="builderStatus"></div>
+
+  </div>
+
+  <div id="previewArea" style="display:none">
+
+    <div class="section-heading">
+      <h2>Live Preview</h2>
+      <span class="subtitle">Generated website</span>
+    </div>
+
+    <div class="preview-tools">
+      <button class="btn secondary" onclick="saveWebsite()">Save Project</button>
+      <button class="btn secondary" onclick="downloadWebsite()">Export HTML</button>
+    </div>
+
+    <iframe class="preview" id="sitePreview" sandbox="allow-scripts allow-forms"></iframe>
+
+    <div class="section-heading">
+      <h2>Generated Source Code</h2>
+      <button class="btn secondary" onclick="copyWebsiteCode()">Copy Code</button>
+    </div>
+
+    <textarea id="websiteCode" style="min-height:250px" spellcheck="false"></textarea>
+
+  </div>
+
+</section>
+
+<!-- CODE ASSISTANT -->
+
+<section class="page" id="code">
+
+  <p class="eyebrow">DEVELOPER WORKSPACE</p>
+  <h1>Code Assistant</h1>
+  <p class="subtitle">Your AI programming assistant.</p>
+
+  <br>
+
+  <div class="card">
+
+    <label>Programming language</label>
+    <select id="codeLanguage">
+      <option>JavaScript</option>
+      <option>HTML and CSS</option>
+      <option>Python</option>
+      <option>React</option>
+      <option>PHP</option>
+      <option>SQL</option>
+    </select>
+
+    <label>What do you want to do?</label>
+    <textarea id="codePrompt" placeholder="Explain your coding task, paste code to debug, or describe a feature you want to build."></textarea>
+
+    <button class="btn" id="codeBtn" onclick="runCodeAssistant()">Run Assistant</button>
+
+    <div class="status" id="codeStatus"></div>
+    <pre class="output" id="codeOutput"></pre>
+
+  </div>
+
+</section>
+
+<!-- WRITING STUDIO -->
+
+<section class="page" id="writing">
+
+  <p class="eyebrow">CONTENT CREATION</p>
+  <h1>Writing Studio</h1>
+  <p class="subtitle">Create clear and professional content.</p>
+
+  <br>
+
+  <div class="card">
+
+    <label>Writing type</label>
+    <select id="writingType">
+      <option>Professional article</option>
+      <option>Business proposal</option>
+      <option>Social media post</option>
+      <option>Product description</option>
+      <option>Business email</option>
+      <option>Project documentation</option>
+    </select>
+
+    <label>Describe what you want written</label>
+    <textarea id="writingPrompt" placeholder="Describe the content you want Danttel AI to create..."></textarea>
+
+    <button class="btn" id="writingBtn" onclick="generateWriting()">Generate Content</button>
+
+    <div class="status" id="writingStatus"></div>
+    <pre class="output" id="writingOutput"></pre>
+
+  </div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section class="page" id="projects">
+
+  <p class="eyebrow">WORKSPACE MANAGEMENT</p>
+  <h1>My Projects</h1>
+  <p class="subtitle">Your saved website projects.</p>
+
+  <br>
+
+  <div id="projectList"></div>
+
+</section>
+
+<!-- SETTINGS -->
+
+<section class="page" id="settings">
+
+  <p class="eyebrow">PERSONALIZATION</p>
+  <h1>Settings</h1>
+
+  <div class="card">
+
+    <div class="settings-row">
+      <div>
+        <strong>Appearance</strong>
+        <p class="subtitle">Switch between light and dark mode.</p>
+      </div>
+      <button class="btn secondary" onclick="toggleTheme()">Change Theme</button>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <strong>Workspace</strong>
+        <p class="subtitle">Danttel AI Studio</p>
+      </div>
+      <span style="color:var(--accent)">Active</span>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <strong>API connection</strong>
+        <p class="subtitle">AI requests use your secure backend.</p>
+      </div>
+      <span>Backend</span>
+    </div>
+
+    <div class="settings-row">
+      <div>
+        <strong>Local data</strong>
+        <p class="subtitle">Saved projects are stored in this browser.</p>
+      </div>
+      <button class="btn danger" onclick="clearProjects()">Clear Projects</button>
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+</main>
+</div>
+
+<script>
+
+// NAVIGATION
+
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+  document.getElementById(page).classList.add("active");
+
+  const button = document.querySelector(`[data-page="${page}"]`);
+  if (button) button.classList.add("active");
+
+  const titles = {
+    dashboard:"Overview",
+    chat:"AI Chat",
+    builder:"Website Builder",
+    code:"Code Assistant",
+    writing:"Writing Studio",
+    projects:"My Projects",
+    settings:"Settings"
+  };
+
+  document.getElementById("pageTitle").textContent = titles[page];
+
+  closeMenu();
+  if (page === "projects") renderProjects();
+}
+
+document.querySelectorAll(".nav-btn").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+// MOBILE MENU
+
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+function closeMenu() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+// THEME
+
+function toggleTheme() {
+  document.body.classList.toggle("light");
+
+  localStorage.setItem(
+    "danttelTheme",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
+}
+
+if (localStorage.getItem("danttelTheme") === "light") {
+  document.body.classList.add("light");
+}
+
+// API CONNECTION
+
+async function askAI(prompt, statusElement) {
+  statusElement.textContent = "Connecting to Danttel AI...";
+  statusElement.className = "status";
+
+  try {
+    const response = await fetch("/api/generate", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({prompt})
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
+
+    if (!data.result) {
+      throw new Error("The AI returned an empty response.");
+    }
+
+    statusElement.textContent = "Generation completed successfully.";
+    statusElement.className = "status success";
+
+    return data.result;
+
+  } catch(error) {
+    statusElement.textContent = error.message;
+    statusElement.className = "status error";
+    throw error;
+  }
+}
+
+// AI CHAT
+
+function addMessage(text, type) {
+  const box = document.getElementById("chatBox");
+  const message = document.createElement("div");
+
+  message.className = "message " + type;
+  message.textContent = text;
+
+  box.appendChild(message);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendChat() {
+  const input = document.getElementById("chatInput");
+  const button = document.getElementById("chatSend");
+  const prompt = input.value.trim();
+
+  if (!prompt) return;
+
+  addMessage(prompt,"user");
+  input.value = "";
+  button.disabled = true;
+
+  try {
+    const answer = await askAI(
+      prompt,
+      document.getElementById("chatStatus")
+    );
+
+    addMessage(answer,"ai");
+
+  } catch(error) {
+    addMessage("Sorry, I couldn't complete that request: " + error.message,"ai");
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function quickChat(text) {
+  document.getElementById("chatInput").value = text;
+  sendChat();
+}
+
+// WEBSITE BUILDER
+
+let currentWebsite = "";
+
+async function generateWebsite() {
+  const prompt = document.getElementById("sitePrompt").value.trim();
+  const style = document.getElementById("siteStyle").value;
+  const color = document.getElementById("siteColor").value;
+
+  if (!prompt) {
+    alert("Please describe your website first.");
+    return;
+  }
+
+  const button = document.getElementById("buildBtn");
+  const status = document.getElementById("builderStatus");
+
+  button.disabled = true;
+  button.textContent = "Generating...";
+
+  try {
+    const result = await askAI(
+      `You are an expert professional web developer.
+
+Build a complete, functional, responsive website using HTML, CSS and JavaScript.
+
+Design style: ${style}
+Primary colour: ${color}
+
+Website requirements:
+${prompt}
+
+Requirements:
+- Return a complete standalone HTML document.
+- Include all CSS inside a style tag.
+- Include JavaScript inside a script tag where needed.
+- Make the design responsive on mobile and desktop.
+- Use professional layouts and typography.
+- Make buttons and interactions functional where appropriate.
+- Do not use Markdown code fences.
+- Return only the HTML source code.`,
+      status
+    );
+
+    const match = result.match(/<!DOCTYPE html[\s\S]*?<\/html>/i);
+    currentWebsite = match ? match[0] : result;
+
+    document.getElementById("websiteCode").value = currentWebsite;
+
+    document.getElementById("sitePreview").srcdoc = currentWebsite;
+
+    document.getElementById("previewArea").style.display = "block";
+
+  } catch(error) {
+    console.error(error);
+  } finally {
+    button.disabled = false;
+    button.textContent = "✦ Generate Website";
+  }
+}
+
+// PROJECT STORAGE
+
+function getProjects() {
+  try {
+    return JSON.parse(localStorage.getItem("danttelProjects") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveWebsite() {
+  const code = document.getElementById("websiteCode").value;
+
+  if (!code.trim()) return;
+
+  currentWebsite = code;
+
+  const name = prompt("Enter a name for your website:", "My AI Website");
+
+  if (!name) return;
+
+  const projects = getProjects();
+
+  projects.push({
+    id:Date.now(),
+    name,
+    code,
+    date:new Date().toLocaleString()
+  });
+
+  localStorage.setItem("danttelProjects",JSON.stringify(projects));
+
+  alert("Project saved successfully!");
+}
+
+function renderProjects() {
+  const list = document.getElementById("projectList");
+  const projects = getProjects();
+
+  if (!projects.length) {
+    list.innerHTML = '<div class="card empty">No projects saved yet. Generate your first website!</div>';
+    return;
+  }
+
+  list.innerHTML = "";
+
+  projects.forEach(project => {
+    const card = document.createElement("div");
+    card.className = "card project";
+
+    const info = document.createElement("div");
+    const title = document.createElement("strong");
+    const date = document.createElement("small");
+
+    title.textContent = project.name;
+    date.textContent = "Saved: " + project.date;
+
+    info.append(title,date);
+
+    const actions = document.createElement("div");
+    actions.style.display = "flex";
+    actions.style.gap = "7px";
+
+    const open = document.createElement("button");
+    open.className = "btn secondary";
+    open.textContent = "Open";
+    open.onclick = () => openProject(project.id);
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Delete";
+    remove.onclick = () => deleteProject(project.id);
+
+    actions.append(open,remove);
+    card.append(info,actions);
+    list.appendChild(card);
+  });
+}
+
+function openProject(id) {
+  const project = getProjects().find(p => p.id === id);
+
+  if (!project) return;
+
+  currentWebsite = project.code;
+
+  document.getElementById("websiteCode").value = project.code;
+  document.getElementById("sitePreview").srcdoc = project.code;
+  document.getElementById("previewArea").style.display = "block";
+
+  showPage("builder");
+}
+
+function deleteProject(id) {
+  if (!confirm("Delete this project?")) return;
+
+  const projects = getProjects().filter(p => p.id !== id);
+
+  localStorage.setItem("danttelProjects",JSON.stringify(projects));
+
+  renderProjects();
+}
+
+function clearProjects() {
+  if (!confirm("Are you sure you want to delete all saved projects?")) return;
+
+  localStorage.removeItem("danttelProjects");
+  renderProjects();
+}
+
+// EXPORT
+
+function downloadWebsite() {
+  const code = document.getElementById("websiteCode").value;
+
+  if (!code.trim()) return;
+
+  const blob = new Blob([code],{type:"text/html"});
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "danttel-website.html";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function copyWebsiteCode() {
+  const code = document.getElementById("websiteCode").value;
+
+  if (!code.trim()) return;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(code)
+      .then(() => alert("Code copied!"))
+      .catch(() => alert("Unable to copy automatically."));
+  } else {
+    const field = document.getElementById("websiteCode");
+    field.select();
+    alert("Select and copy the highlighted code.");
+  }
+}
+
+// CODE ASSISTANT
+
+async function runCodeAssistant() {
+  const prompt = document.getElementById("codePrompt").value.trim();
+  const language = document.getElementById("codeLanguage").value;
+
+  if (!prompt) {
+    alert("Please describe your coding task.");
+    return;
+  }
+
+  const button = document.getElementById("codeBtn");
+  const output = document.getElementById("codeOutput");
+
+  button.disabled = true;
+  button.textContent = "Working...";
+
+  try {
+    const answer = await askAI(
+      `You are Danttel's expert programming assistant.
+
+Programming language: ${language}
+
+User request:
+${prompt}
+
+Give a correct, clear solution. Explain important changes and provide code when appropriate.`,
+      document.getElementById("codeStatus")
+    );
+
+    output.textContent = answer;
+
+  } catch(error) {
+    output.textContent = error.message;
+  } finally {
+    button.disabled = false;
+    button.textContent = "Run Assistant";
+  }
+}
+
+// WRITING STUDIO
+
+async function generateWriting() {
+  const prompt = document.getElementById("writingPrompt").value.trim();
+  const type = document.getElementById("writingType").value;
+
+  if (!prompt) {
+    alert("Please describe what you want written.");
+    return;
+  }
+
+  const button = document.getElementById("writingBtn");
+  const output = document.getElementById("writingOutput");
+
+  button.disabled = true;
+  button.textContent = "Generating...";
+
+  try {
+    const answer = await askAI(
+      `You are a professional writing assistant.
+
+Writing type: ${type}
+
+User instructions:
+${prompt}
+
+Create polished, useful and professional content.`,
+      document.getElementById("writingStatus")
+    );
+
+    output.textContent = answer;
+
+  } catch(error) {
+    output.textContent = error.message;
+  } finally {
+    button.disabled = false;
+    button.textContent = "Generate Content";
+  }
+}
+
+</script>
+
+</body>
+</html>
